@@ -1,0 +1,67 @@
+CREATE SCHEMA Hype_Projeto DEFAULT CHARACTER SET utf8 ;
+USE Hype_Projeto ;
+
+-- -----------------------------------------------------
+-- Table `Hype_Projeto`_`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE Hype_Projeto_Usuario (
+  `id_pessoa` INT NOT NULL,
+  `nome` CHAR(200) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `Senha` VARCHAR(45)  NOT NULL,
+  `Endereço` VARCHAR(100) NOT NULL,
+  `Data_de_nascimento` DATE NOT NULL,
+PRIMARY KEY (`id_pessoa`),
+UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) VISIBLE);
+
+-- -----------------------------------------------------
+-- Table `Hype_Projeto`_`Sacola`
+-- -----------------------------------------------------
+CREATE TABLE Hype_Projeto_Sacola (
+  `id_Sacola` INT NOT NULL,
+  `soma_valor_produtos` FLOAT NULL,
+  `soma_qnt_produtos` INT NULL,
+  `data_criacao` DATE NULL,
+  `preco_unitario` FLOAT NULL,
+  `Usuario_idpessoa` INT NOT NULL,
+ PRIMARY KEY (`id_Sacola`),
+ FOREIGN KEY (`Usuario_idpessoa`)
+ REFERENCES Hype_Projeto_Usuario (`id_pessoa`));
+
+-- -----------------------------------------------------
+-- Table `Hype_Projeto`_`Produto`
+-- -----------------------------------------------------
+CREATE TABLE Hype_Projeto_Produto (
+  `id_Produto` INT NOT NULL AUTO_INCREMENT,
+  `nome_produto` CHAR(100) NOT NULL,
+  `Preço` FLOAT NOT NULL,
+  `cor` VARCHAR(45) NULL,
+  `quantidade_estoque` INT NULL,
+  `Usuario_idpessoa` INT NOT NULL,
+  `Sacola_idSacola` INT NOT NULL,
+  PRIMARY KEY (`id_Produto`),
+  UNIQUE INDEX `Nome_UNIQUE` (`nome_produto` ASC) VISIBLE,
+  FOREIGN KEY (`Usuario_idpessoa`)
+  REFERENCES Hype_Projeto_Usuario (`id_pessoa`));
+
+-- -----------------------------------------------------
+-- Table `Hype_Projeto`_`Vendas`
+-- -----------------------------------------------------
+CREATE Hype_Projeto_Vendas (
+  `id_Vendas` INT NOT NULL,
+  `Quantidade_vendas` INT NOT NULL,
+PRIMARY KEY (`id_Vendas`));
+
+-- -----------------------------------------------------
+-- Table `Hype_Projeto`_`Ger_Estoque`
+-- -----------------------------------------------------
+CREATE TABLE Hype_Projeto_Ger_Estoque (
+  `idGer_Estoque` INT NOT NULL,
+  `quantidade_movimentada` INT NOT NULL,
+  `data_movimento` DATE NOT NULL,
+  `Produto_idProduto` INT NOT NULL,
+  `Vendas_idVendas` INT NOT NULL,
+PRIMARY KEY (`idGer_Estoque`),
+FOREIGN KEY (`Produto_idProduto`)
+REFERENCES Hype_Projeto_Produto (`id_Produto`)
+REFERENCES Hype_Projeto_Vendas (`id_Vendas`));
