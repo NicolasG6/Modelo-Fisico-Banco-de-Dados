@@ -34,7 +34,7 @@ CREATE TABLE Hype_Projeto_Sacola (
 CREATE TABLE Hype_Projeto_Produto (
   `id_Produto` INT NOT NULL AUTO_INCREMENT,
   `nome_produto` CHAR(100) NOT NULL,
-  `Preço` FLOAT NOT NULL,
+  `Preço` FLOAT NULL,
   `cor` VARCHAR(45) NULL,
   `quantidade_estoque` INT NULL,
   `Usuario_idpessoa` INT NOT NULL,
@@ -57,10 +57,10 @@ PRIMARY KEY (`id_Vendas`));
 -- -----------------------------------------------------
 CREATE TABLE Hype_Projeto_Ger_Estoque (
   `idGer_Estoque` INT NOT NULL,
-  `quantidade_movimentada` INT NOT NULL,
-  `data_movimento` DATE NOT NULL,
+  `quantidade_movimentada` INT  NULL,
+  `data_movimento` DATE NULL,
   `Produto_idProduto` INT NOT NULL,
-  `Vendas_idVendas` INT NOT NULL,
+  `Vendas_idVendas` INT NULL,
 PRIMARY KEY (`idGer_Estoque`),
 FOREIGN KEY (`Produto_idProduto`)
 REFERENCES Hype_Projeto_Produto (`id_Produto`)
